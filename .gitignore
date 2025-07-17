@@ -1,0 +1,14 @@
+# Ambientes virtuais
+venv/
+env/
+ENV/
+meu_ambiente_kivy/
+
+# Bytecode Python
+__pycache__/
+*.py[cod]
+
+# Arquivos temporários e do sistema
+*.log
+.DS_Store
+Thumbs.db
