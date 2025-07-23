@@ -1,0 +1,21 @@
+<MainWidget>:
+    orientation: 'vertical'
+
+    MovableDot:
+        id: ponto
+        size_hint_y: 0.8
+
+    BoxLayout:
+        size_hint_y: 0.2
+        Button:
+            text: "←"
+            on_release: ponto.move_left()
+        Button:
+            text: "↑"
+            on_release: ponto.move_up()
+        Button:
+            text: "↓"
+            on_release: ponto.move_down()
+        Button:
+            text: "→"
+            on_release: ponto.move_right()
