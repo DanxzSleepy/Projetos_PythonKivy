@@ -1,16 +1,17 @@
 <CalculatorWidget>:
     orientation: 'vertical'
     Label:
-        text: "Número 1: " + str(root.num1)
+        text: f"Num1: {root.num1}"
     Label:
-        text: "Número 2: " + str(root.num2)
+        text: f"Num2: {root.num2}"
     Label:
-        text: "Soma: " + str(root.sum_result)
+        text: f"Soma: {root.sum_result}"
     BoxLayout:
-        size_hint_y: 0.2
+        size_hint_y: None
+        height: 40
         Button:
             text: "+"
-            on_release: root.num1 += 1
+            on_press: root.num1 += 1
         Button:
-            text: "+"
-            on_release: root.num2 += 1
+            text: "-"
+            on_press: root.num2 += 1

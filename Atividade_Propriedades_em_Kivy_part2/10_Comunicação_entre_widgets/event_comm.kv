@@ -1,0 +1,14 @@
+<StatusDisplayWidget>:
+    Label:
+        text: f"Status Atual: {root.global_state_obj.current_status}"
+
+<StatusChangerWidget>:
+    orientation: 'horizontal'
+    spacing: 10
+    TextInput:
+        id: input_status
+        multiline: False
+    Button:
+        text: "Alterar Status"
+        on_press: root.change_status(input_status.text)
+

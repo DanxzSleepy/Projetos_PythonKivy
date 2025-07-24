@@ -1,11 +1,11 @@
 <UserProfileWidget>:
     orientation: 'vertical'
     Label:
-        text: "Nome: " + root.user_data['name']
+        text: f"Nome: {root.user_data['name']}"
     Label:
-        text: "Idade: " + str(root.user_data['age'])
+        text: f"Idade: {root.user_data['age']}"
     Label:
-        text: "Cidade: " + root.user_data['city']
+        text: f"Cidade: {root.user_data['city']}"
     Button:
-        text: "Aumentar Idade"
-        on_release: root.update_age()
+        text: "Atualizar Idade"
+        on_press: root.update_age()

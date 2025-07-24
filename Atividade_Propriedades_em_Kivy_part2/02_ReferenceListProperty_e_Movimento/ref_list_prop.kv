@@ -1,21 +1,29 @@
-<MainWidget>:
-    orientation: 'vertical'
-
-    MovableDot:
-        id: ponto
-        size_hint_y: 0.8
-
-    BoxLayout:
-        size_hint_y: 0.2
-        Button:
-            text: "←"
-            on_release: ponto.move_left()
-        Button:
-            text: "↑"
-            on_release: ponto.move_up()
-        Button:
-            text: "↓"
-            on_release: ponto.move_down()
-        Button:
-            text: "→"
-            on_release: ponto.move_right()
+<MovableDot>:
+    canvas:
+        Ellipse:
+            pos: self.dot_pos
+            size: 30, 30
+    Button:
+        text: "Esquerda"
+        pos: 10, 10
+        size_hint: None, None
+        size: 100, 40
+        on_press: root.move_left()
+    Button:
+        text: "Direita"
+        pos: 120, 10
+        size_hint: None, None
+        size: 100, 40
+        on_press: root.move_right()
+    Button:
+        text: "Cima"
+        pos: 230, 10
+        size_hint: None, None
+        size: 100, 40
+        on_press: root.move_up()
+    Button:
+        text: "Baixo"
+        pos: 340, 10
+        size_hint: None, None
+        size: 100, 40
+        on_press: root.move_down()

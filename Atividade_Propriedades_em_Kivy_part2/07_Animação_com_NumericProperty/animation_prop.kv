@@ -1,0 +1,14 @@
+<AnimatedBox>:
+    orientation: 'vertical'
+    Widget:
+        size_hint: None, None
+        size: root.box_size, root.box_size
+        canvas:
+            Color:
+                rgba: 1, 0, 1, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+    Button:
+        text: "Animar"
+        on_press: root.animate_box()

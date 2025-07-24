@@ -1,0 +1,13 @@
+<ThemeRoot>:
+    orientation: 'vertical'
+    spacing: 10
+    padding: 20
+    Button:
+        text: "Mudar Tema"
+        background_color: app.app_theme['primary']
+        on_press: root.toggle_theme()
+    Label:
+        text: "Texto Secundário"
+        color: app.app_theme['secondary']
+        size_hint_y: None
+        height: self.texture_size[1] + 20

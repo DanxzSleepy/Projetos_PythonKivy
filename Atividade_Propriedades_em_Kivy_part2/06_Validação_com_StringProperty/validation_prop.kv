@@ -1,0 +1,8 @@
+<ValidatedInputWidget>:
+    orientation: 'vertical'
+    TextInput:
+        id: input
+        multiline: False
+        on_text: root.validated_text = self.text
+    Label:
+        text: root.validated_text
