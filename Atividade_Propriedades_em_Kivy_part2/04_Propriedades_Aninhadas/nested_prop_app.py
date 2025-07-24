@@ -1,3 +1,5 @@
+# Objetivo: Acessar e alterar uma propriedade de outro widget dentro de um principal.
+
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import BooleanProperty, ObjectProperty

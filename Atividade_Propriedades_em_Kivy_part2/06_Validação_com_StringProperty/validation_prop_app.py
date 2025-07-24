@@ -1,3 +1,5 @@
+# Objetivo: Validar um texto (mínimo 5 letras e sem números).
+
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import StringProperty

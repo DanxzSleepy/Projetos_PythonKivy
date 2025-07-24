@@ -1,3 +1,5 @@
+# Objetivo: Agrupar pos_x e pos_y e movimentar um ponto.
+
 from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.properties import NumericProperty, ReferenceListProperty

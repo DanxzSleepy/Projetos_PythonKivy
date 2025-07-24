@@ -1,3 +1,5 @@
+# Objetivo: Alterar o tamanho com animação.
+
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import NumericProperty

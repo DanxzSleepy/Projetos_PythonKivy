@@ -1,3 +1,5 @@
+# Objetivo: Salvar/recuperar valor mesmo após fechar o app.
+
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import NumericProperty

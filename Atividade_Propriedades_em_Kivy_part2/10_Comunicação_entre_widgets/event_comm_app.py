@@ -1,3 +1,5 @@
+# Objetivo: Compartilhar dados com EventDispatcher entre widgets independentes.
+
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import StringProperty, ObjectProperty

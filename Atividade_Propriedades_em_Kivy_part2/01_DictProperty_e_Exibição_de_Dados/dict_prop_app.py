@@ -1,3 +1,5 @@
+# Objetivo: Armazenar dados estruturados (nome, idade, cidade) e atualizar dinamicamente.
+
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import DictProperty
