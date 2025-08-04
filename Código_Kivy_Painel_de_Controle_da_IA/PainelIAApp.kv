@@ -1,0 +1,43 @@
+<PainelIA>:
+    orientation: 'vertical'
+    padding: 20
+    spacing: 15
+
+    Label:
+        text: root.status_texto
+        font_size: '22sp'
+        color: (1, 0.2, 0.2, 1) if not root.ia_ativa else (0.2, 1, 0.2, 1)
+        bold: True
+        size_hint_y: None
+        height: self.texture_size[1] + 10
+
+    ProgressBar:
+        max: 100
+        value: root.nivel_ameaca
+        size_hint_y: None
+        height: 20
+
+    ToggleButton:
+        text: "Desligar IA" if root.ia_ativa else "Ligar IA"
+        on_press: root.alternar_ia()
+        size_hint_y: None
+        height: 40
+
+    BoxLayout:
+        size_hint_y: None
+        height: 40
+        spacing: 10
+
+        TextInput:
+            id: campo_comando
+            multiline: False
+            hint_text: "Digite um comando"
+        
+        Button:
+            text: "Enviar"
+            on_press: root.enviar_comando()
+
+    Label:
+        text: root.comando_resposta
+        color: (1, 1, 1, 1)
+        font_size: '16sp'
