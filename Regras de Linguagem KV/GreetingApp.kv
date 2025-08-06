@@ -1,0 +1,23 @@
+#:kivy 2.0
+
+<RootWidget>:
+    orientation: 'vertical'
+    padding: 20
+    spacing: 10
+
+    TextInput:
+        id: input_name
+        hint_text: "Digite seu nome"
+        multiline: False
+        size_hint_y: None
+        height: '40dp'
+
+    Button:
+        text: "Atualizar saudação"
+        size_hint_y: None
+        height: '40dp'
+        on_press: root.update_greeting()
+
+    Label:
+        text: root.greeting
+        font_size: '20sp'
