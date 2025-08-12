@@ -1,0 +1,65 @@
+#:import FadeTransition kivy.uix.screenmanager.FadeTransition
+
+<HomeScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+        
+        Label:
+            text: 'Tela Principal'
+            font_size: 30
+            size_hint_y: 0.2
+            color: 0, 0, 0, 1
+            
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: 10
+            
+            Button:
+                text: 'Ir para Tela 1'
+                on_press: root.manager.current = 'tela1'
+                background_color: 0.2, 0.6, 0.8, 1
+                
+            Button:
+                text: 'Ir para Tela 2'
+                on_press: root.manager.current = 'tela2'
+                background_color: 0.8, 0.6, 0.2, 1
+                
+            Button:
+                text: 'Ir para Tela 3'
+                on_press: root.manager.current = 'tela3'
+                background_color: 0.6, 0.2, 0.8, 1
+                
+            Button:
+                text: 'Ir para Tela 4'
+                on_press: root.manager.current = 'tela4'
+                background_color: 0.2, 0.8, 0.4, 1
+                
+            Button:
+                text: 'Ir para Tela 5'
+                on_press: root.manager.current = 'tela5'
+                background_color: 0.8, 0.4, 0.2, 1
+
+<TelaBase>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+        
+        Label:
+            text: root.title
+            font_size: 30
+            size_hint_y: 0.2
+            color: 0, 0, 0, 1
+            
+        Button:
+            text: 'Voltar para a página inicial'
+            size_hint_y: 0.1
+            on_press: root.manager.current = 'home'
+            background_color: 0.8, 0.2, 0.2, 1
+            
+        Label:
+            text: root.description
+            font_size: 18
+            color: 0, 0, 0, 1
