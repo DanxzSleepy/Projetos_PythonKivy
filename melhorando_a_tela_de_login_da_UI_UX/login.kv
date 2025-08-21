@@ -1,0 +1,102 @@
+<LoginScreen>:
+    orientation: 'vertical'
+    padding: 40
+    spacing: 20
+    canvas.before:
+        Color:
+            rgba: 0.88, 0.88, 1, 1  # azul clarinho estilo XP
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    # CENTRALIZA TODO O CONTEÚDO
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint: None, None
+        width: min(root.width * 0.8, 400)
+        height: self.minimum_height
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+        spacing: 20
+
+        Label:
+            text: "Bem-vindo ao Sistema!"
+            font_size: '26sp'
+            bold: True
+            color: 0, 0, 0.2, 1
+            size_hint_y: None
+            height: 50
+
+        # Campo de e-mail
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: 5
+            Label:
+                text: 'E-mail:'
+                color: 0, 0, 0, 1
+                size_hint_y: None
+                height: 20
+            TextInput:
+                id: email_input
+                hint_text: 'Digite seu e-mail'
+                multiline: False
+                background_normal: ''
+                background_color: 1, 1, 1, 1
+                foreground_color: 0, 0, 0, 1
+                padding: [10, 10]
+                canvas.before:
+                    Color:
+                        rgba: 0.75, 0.75, 0.85, 1  # cor da borda
+                    Line:
+                        width: 2
+                        rectangle: (self.x, self.y, self.width, self.height)
+
+        # Campo de senha
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: 5
+            Label:
+                text: 'Senha:'
+                color: 0, 0, 0, 1
+                size_hint_y: None
+                height: 20
+            TextInput:
+                id: password_input
+                hint_text: 'Digite sua senha'
+                password: True
+                multiline: False
+                background_normal: ''
+                background_color: 1, 1, 1, 1
+                foreground_color: 0, 0, 0, 1
+                padding: [10, 10]
+                canvas.before:
+                    Color:
+                        rgba: 0.75, 0.75, 0.85, 1
+                    Line:
+                        width: 2
+                        rectangle: (self.x, self.y, self.width, self.height)
+
+        # Botão
+        Button:
+            text: 'Entrar'
+            size_hint_y: None
+            height: 45
+            bold: True
+            background_normal: ''
+            background_color: 0.35, 0.5, 0.9, 1
+            color: 1, 1, 1, 1
+            on_press: root.login()
+            canvas.before:
+                Color:
+                    rgba: 0.25, 0.4, 0.8, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+        # Rodapé
+        Label:
+            text: "© 2002 - Sistema XP™"
+            font_size: '14sp'
+            italic: True
+            color: 0.1, 0.1, 0.3, 1
+            size_hint_y: None
+            height: 30
