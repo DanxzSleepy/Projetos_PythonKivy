@@ -12,3 +12,23 @@ __pycache__/
 *.log
 .DS_Store
 Thumbs.db
+
+# Arquivos que eu n identifiquei
+.vscode/
+.idea/
+*.swp
+*.swo
+*.bak
+*.tmp
+*.old
+*.orig
+*.rej
+*.class
+*.o
+*.so
+*.exe
+
+
+# Arquivos de configuração do Kivy
+.kivy/
+*.kivy
