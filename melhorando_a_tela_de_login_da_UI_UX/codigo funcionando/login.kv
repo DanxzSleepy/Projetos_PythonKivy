@@ -1,0 +1,39 @@
+<LoginScreen>:
+    orientation: "vertical"
+    padding: 40
+    spacing: 20
+
+    Label:
+        text: "Tela de Login"
+        font_size: 32
+        bold: True
+        size_hint_y: None
+        height: 60
+
+    TextInput:
+        id: email_input
+        hint_text: "Digite seu e-mail"
+        multiline: False
+        size_hint_y: None
+        height: 50
+
+    TextInput:
+        id: password_input
+        hint_text: "Digite sua senha"
+        multiline: False
+        password: True
+        size_hint_y: None
+        height: 50
+
+    Button:
+        text: "Entrar"
+        size_hint_y: None
+        height: 50
+        background_color: 0, 0.6, 0.2, 1
+        on_press: root.login()
+
+    Label:
+        id: message_label
+        text: ""
+        font_size: 18
+        color: 1,1,1,1

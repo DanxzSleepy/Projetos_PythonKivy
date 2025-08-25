@@ -1,0 +1,85 @@
+# Define o estilo para a classe 'LoginScreen' que foi criada no arquivo Python.
+# Tudo dentro deste bloco de código afeta a aparência da tela de login.
+<LoginScreen>:
+    # 'BoxLayout' é um layout que organiza os widgets em uma linha ou coluna.
+    # 'orientation: 'vertical'' define que os widgets serão empilhados um sobre o outro.
+    orientation: 'vertical'
+    # 'padding' adiciona um espaçamento interno entre a borda do layout e seus widgets.
+    padding: 30
+    # 'spacing' adiciona um espaçamento entre cada widget filho dentro deste layout.
+    spacing: 15
+
+    # O widget 'Label' é usado para exibir texto na tela.
+    Label:
+        # 'text' define o conteúdo do texto do Label.
+        text: 'Bem-vindo!'
+        # 'font_size' define o tamanho da fonte. 'sp' é uma unidade escalável para telas diferentes.
+        font_size: '20sp'
+        # 'size_hint_y: None' desativa o redimensionamento automático na vertical.
+        size_hint_y: None
+        # 'height' define a altura do widget.
+        height: 50
+
+    # Outro 'BoxLayout', usado aqui para agrupar o Label e o TextInput do e-mail.
+    # Isso permite um controle mais preciso do layout dos campos.
+    BoxLayout:
+        # Define a orientação do layout aninhado como vertical.
+        orientation: 'vertical'
+        # Desativa o redimensionamento vertical, permitindo que a altura seja definida pelo conteúdo.
+        size_hint_y: None
+        # Define a altura para ser o mínimo necessário para conter os widgets internos.
+        height: self.minimum_height
+        # Espaçamento entre os widgets internos (Label e TextInput).
+        spacing: 10
+        
+        # 'Label' para o campo de e-mail.
+        Label:
+            text: 'E-mail:'
+            # 'halign' (horizontal align) alinha o texto à esquerda dentro do espaço do Label.
+            halign: 'left'
+            # 'valign' (vertical align) alinha o texto ao topo.
+            valign: 'top'
+            # 'text_size: self.size' permite que o texto se adapte ao tamanho do Label.
+            text_size: self.size
+
+        # 'TextInput' é o campo onde o usuário pode digitar.
+        TextInput:
+            # O 'id' é um identificador único para este widget.
+            # O Python usa este 'id' para acessar o conteúdo digitado.
+            id: email_input
+            # 'hint_text' é um texto de placeholder que aparece quando o campo está vazio.
+            hint_text: 'Digite seu e-mail'
+            # 'multiline: False' impede que o usuário digite múltiplas linhas de texto.
+            multiline: False
+
+    # Este é um 'BoxLayout' idêntico ao anterior, mas para o campo de senha.
+    # A estrutura se repete para manter a consistência visual.
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint_y: None
+        height: self.minimum_height
+        spacing: 10
+        
+        Label:
+            text: 'Senha:'
+            halign: 'left'
+            valign: 'top'
+            text_size: self.size
+
+        TextInput:
+            # O 'id' para este widget é diferente, permitindo ao Python acessá-lo individualmente.
+            id: password_input
+            hint_text: 'Digite sua senha'
+            # 'password: True' faz com que os caracteres digitados sejam substituídos por asteriscos ou pontos.
+            password: True
+            multiline: False
+    
+    # O widget 'Button' é o botão de 'Entrar'.
+    Button:
+        text: 'Entrar'
+        size_hint_y: None
+        height: 40
+        # 'on_press' é um 'evento'. Ele define a ação que ocorre quando o botão é pressionado.
+        # 'root' refere-se à instância principal da nossa tela (a classe LoginScreen).
+        # '.login()' chama o método 'login' que definimos em main.py.
+        on_press: root.login()
