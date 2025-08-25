@@ -1,0 +1,42 @@
+BoxLayout:
+    orientation: 'vertical'
+    padding: 10
+    spacing: 10
+
+    Label:
+        text: 'Lista de Tarefas'
+        font_size: 24
+        size_hint_y: None
+        height: 40
+
+    TextInput:
+        id: task_input
+        hint_text: 'Escreva uma nova tarefa'
+        multiline: False
+
+    Button:
+        text: 'Adicionar Tarefa'
+        on_press: app.add_task(task_input.text)
+        size_hint_y: None
+        height: 40
+
+    Button:
+        text: 'Limpar Tarefas'
+        on_press: app.clear_tasks()
+        size_hint_y: None
+        height: 40
+
+    Label:
+        text: 'Tarefas:'
+        font_size: 18
+        size_hint_y: None
+        height: 30
+
+    ScrollView:
+        GridLayout:
+            id: task_list
+            cols: 1
+            size_hint_y: None
+            height: self.minimum_height
+            row_default_height: 40
+            row_force_default: True
