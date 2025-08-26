@@ -102,28 +102,26 @@ class AgeForm(BoxLayout):
         idade_texto = self.age_input.text.strip()
 
         if not nome or not idade_texto:
-            self.update_message("Por favor, preencha todos os campos.", Colors.ERROR_COLOR)
+            self.update_message("Por favor, preencha todos os campos.", Colors.ERROR_COLOR, "error.png")
             return
 
         try:
             idade = int(idade_texto)
         except ValueError:
-            self.update_message("Digite uma idade válida (somente números).", Colors.ERROR_COLOR)
+            self.update_message("Digite uma idade válida (somente números).", Colors.ERROR_COLOR, "error.png")
             return
 
-        # Lógica de verificação
+        # Lógica de verificação (a foto eu coloco em outro dia slk kakakakakakakak)
         if idade < 13:
-            self.update_message(f"Olá, {nome}! Você é uma criança.", Colors.WARNING_COLOR)
+            self.update_message(f"Olá, {nome}! Você é uma criança.", Colors.WARNING_COLOR, "warning.png")
         elif idade < 18:
-            self.update_message(f"Olá, {nome}! Você é um adolescente.", Colors.WARNING_COLOR)
+            self.update_message(f"Olá, {nome}! Você é um adolescente.", Colors.WARNING_COLOR, "warning.png")
         elif idade < 30:
-            self.update_message(f"Olá, {nome}! Você é um jovem adulto.", Colors.SUCCESS_COLOR)
+            self.update_message(f"Olá, {nome}! Você é um jovem adulto.", Colors.SUCCESS_COLOR, "success.png")
         elif idade < 60:
-            self.update_message(f"Olá, {nome}! Você é um adulto.", Colors.SUCCESS_COLOR)
-        elif idade > 150:
-            self.update_message(f"Olá, {nome}! Você é um imortal poha ? que isso .,.", Colors.INFO_COLOR)
+            self.update_message(f"Olá, {nome}! Você é um adulto.", Colors.SUCCESS_COLOR, "success.png")
         else:
-            self.update_message(f"Olá, {nome}! Você é um idoso :D.", Colors.INFO_COLOR)
+            self.update_message(f"Olá, {nome}! Você é um idoso :D.", Colors.INFO_COLOR, "info.png")
 
 class IdadeApp(App):
     def build(self):
@@ -132,6 +130,8 @@ class IdadeApp(App):
 
 if __name__ == "__main__":
     IdadeApp().run()
+
+
 
 # Pontos a Melhorados
 
