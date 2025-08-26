@@ -7,7 +7,6 @@ from kivy.uix.textinput import TextInput
 from kivy.core.window import Window
 from kivy.uix.floatlayout import FloatLayout
 from kivy.graphics import Color, RoundedRectangle
-from kivy.uix.dropdown import DropDown
 from kivy.uix.spinner import Spinner
 from kivy.uix.popup import Popup
 from kivy.uix.scrollview import ScrollView
@@ -26,73 +25,59 @@ class Card(BoxLayout):
         self.bg.size = self.size
 
 
+class FilmeSorteador:
+    def __init__(self):
+        self.filmes = {
+            "Ação": [
+                ("Mad Max: Estrada da Fúria", 2015),
+                ("John Wick", 2014),
+                ("Duro de Matar", 1988),
+                ("Os Vingadores", 2012),
+                ("Gladiador", 2000),
+            ],
+            "Comédia": [
+                ("Superbad", 2007),
+                ("A Morte Lhe Cai Bem", 1992),
+                ("Os Caça-Fantasmas", 1984),
+                ("O Diário de uma Princesa", 2001),
+                ("As Branquelas", 2004),
+            ],
+            "Drama": [
+                ("Forrest Gump", 1994),
+                ("O Poderoso Chefão", 1972),
+                ("A Lista de Schindler", 1993),
+                ("Clube da Luta", 1999),
+                ("O Senhor dos Anéis: O Retorno do Rei", 2003),
+            ],
+            "Ficção Científica": [
+                ("Interestelar", 2014),
+                ("Blade Runner 2049", 2017),
+                ("A Origem", 2010),
+                ("Ex Machina", 2014),
+                ("Matrix", 1999),
+            ],
+            "Animação": [
+                ("Toy Story", 1995),
+                ("Procurando Nemo", 2003),
+                ("O Rei Leão", 1994),
+                ("Shrek", 2001),
+                ("Divertida Mente", 2015),
+            ]
+        }
+
+    def sortear_filme(self, genero):
+        if genero in self.filmes:
+            return random.choice(self.filmes[genero])
+        return None
+
+    def filtrar_filmes(self, ano):
+        return {genero: [filme for filme in filmes if filme[1] >= ano] for genero, filmes in self.filmes.items()}
+
+
 class FilmeApp(App):
     def build(self):
         Window.clearcolor = (0, 0, 0, 1)
-
-        self.filmes = {
-    "Ação": [
-        "Mad Max: Estrada da Fúria (2015)",
-        "John Wick (2014)",
-        "Duro de Matar (1988)",
-        "Os Vingadores (2012)",
-        "Gladiador (2000)",
-        "O Protetor (2014)",
-        "Missão: Impossível - Efeito Fallout (2018)",
-        "Deadpool (2016)",
-        "O Exterminador do Futuro 2: O Julgamento Final (1991)",
-        "Matrix (1999)"
-    ],
-    "Comédia": [
-        "Superbad (2007)",
-        "A Morte Lhe Cai Bem (1992)",
-        "Os Caça-Fantasmas (1984)",
-        "O Diário de uma Princesa (2001)",
-        "As Branquelas (2004)",
-        "Se Beber, Não Case! (2009)",
-        "Apertem os Cintos... O Piloto Sumiu! (1980)",
-        "O Âncora: A Lenda de Ron Burgundy (2004)",
-        "Zoolander (2001)",
-        "A Noite dos Mortos-Vivos (1968)"
-    ],
-    "Drama": [
-        "Forrest Gump (1994)",
-        "O Poderoso Chefão (1972)",
-        "A Lista de Schindler (1993)",
-        "Clube da Luta (1999)",
-        "O Senhor dos Anéis: O Retorno do Rei (2003)",
-        "Cisne Negro (2010)",
-        "O Lobo de Wall Street (2013)",
-        "A Rede Social (2010)",
-        "12 Anos de Escravidão (2013)",
-        "O Pianista (2002)"
-    ],
-    "Ficção Científica": [
-        "Interestelar (2014)",
-        "Blade Runner 2049 (2017)",
-        "A Origem (2010)",
-        "Ex Machina (2014)",
-        "O Exterminador do Futuro (1984)",
-        "Matrix (1999)",
-        "Star Wars: Uma Nova Esperança (1977)",
-        "O Hospedeiro (2006)",
-        "A Chegada (2016)",
-        "Duna (2021)"
-    ],
-    "Animação": [
-        "Toy Story (1995)",
-        "Procurando Nemo (2003)",
-        "O Rei Leão (1994)",
-        "Shrek (2001)",
-        "Divertida Mente (2015)",
-        "Os Incríveis (2004)",
-        "Frozen: Uma Aventura Congelante (2013)",
-        "A Viagem de Chihiro (2001)",
-        "Zootopia (2016)",
-        "Como Treinar o Seu Dragão (2010)"
-    ]
-}
-
+        self.sorteador = FilmeSorteador()
 
         root = FloatLayout()
 
@@ -185,28 +170,42 @@ class FilmeApp(App):
     def ajustar_texto(self, instance, value):
         instance.text_size = instance.size
 
+    def validar_entrada(self, nome, idade_texto, genero):
+        if not nome:
+            self.show_popup("ERRO: Digite seu nome primeiro!")
+            return False
+        if not idade_texto.isdigit() or int(idade_texto) < 0:
+            self.show_popup("ERRO: Digite uma idade válida!")
+            return False
+        if genero == 'Escolha um gênero':
+            self.show_popup("ERRO: Selecione um gênero!")
+            return False
+        return True
+
     def sugerir_filme(self, instance):
         nome = self.name_input.text.strip()
         idade_texto = self.age_input.text.strip()
         genero = self.genre_spinner.text
-        # Validações
-        if not nome:
-            self.show_popup("ERRO: Digite seu nome primeiro!")
+
+        if not self.validar_entrada(nome, idade_texto, genero):
             return
-        if not idade_texto.isdigit() or int(idade_texto) < 0:
-            self.show_popup("ERRO: Digite uma idade válida!")
-            return
-        if genero == 'Escolha um gênero':
-            self.show_popup("ERRO: Selecione um gênero!")
-            return
-        filme_escolhido = random.choice(self.filmes[genero])  # Seleciona um filme do gênero escolhido
-        self.message_label.text = (
-            f"[b][color=00ff99]Olá, {nome}![/color][/b]\n"
-            f"Sua sugestão retrô é:\n"
-            f"[color=ff00ff]{filme_escolhido}[/color]"
-        )
-    # Adiciona a sugestão ao histórico
-        self.history_box.add_widget(Label(text=f"{nome} sugeriu: {filme_escolhido} ({genero})", color=(1, 1, 1, 1)))
+
+        filme_escolhido = self.sorteador.sortear_filme(genero)
+        if filme_escolhido:
+            self.message_label.text = (
+                f"[b][color=00ff99]Olá, {nome}![/color][/b]\n"
+                f"Sua sugestão retrô é:\n"
+                f"[color=ff00ff]{filme_escolhido[0]} ({filme_escolhido[1]})[/color]"
+            )
+            # Adiciona a sugestão ao histórico com cor diferenciada
+            cor_genero = {
+                "Ação": (1, 0, 0, 1),  # vermelho
+                "Comédia": (1, 1, 0, 1),  # amarelo
+                "Drama": (0, 0, 1, 1),  # azul
+                "Ficção Científica": (0, 1, 1, 1),  # ciano
+                "Animação": (0, 1, 0, 1)  # verde
+            }
+            self.history_box.add_widget(Label(text=f"{nome} sugeriu: {filme_escolhido[0]} ({filme_escolhido[1]})", color=cor_genero[genero]))
 
 if __name__ == "__main__":
     FilmeApp().run()
