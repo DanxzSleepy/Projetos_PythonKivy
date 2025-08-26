@@ -7,11 +7,9 @@ from kivy.uix.textinput import TextInput
 from kivy.core.window import Window
 from kivy.uix.floatlayout import FloatLayout
 from kivy.graphics import Color, RoundedRectangle
+from kivy.uix.togglebutton import ToggleButton
 from kivy.uix.popup import Popup
 from kivy.uix.scrollview import ScrollView
-from kivy.uix.image import Image
-from kivy.uix.gridlayout import GridLayout
-from kivy.uix.togglebutton import ToggleButton
 
 
 class Card(BoxLayout):
@@ -31,49 +29,40 @@ class FilmeSorteador:
     def __init__(self):
         self.filmes = {
             "Ação": [
-                ("Mad Max: Estrada da Fúria", 2015, "mad_max.jpg"),
-                ("John Wick", 2014, "john_wick.jpg"),
-                ("Duro de Matar", 1988, "duro_de_matar.jpg"),
-                ("Os Vingadores", 2012, "vingadores.jpg"),
-                ("Gladiador", 2000, "gladiador.jpg"),
+                ("Mad Max: Estrada da Fúria", 2015),
+                ("John Wick", 2014),
+                ("Duro de Matar", 1988),
+                ("Os Vingadores", 2012),
+                ("Gladiador", 2000),
             ],
             "Comédia": [
-                ("Superbad", 2007, "superbad.jpg"),
-                ("A Morte Lhe Cai Bem", 1992, "morte_lhe_cai_bem.jpg"),
-                ("Os Caça-Fantasmas", 1984, "caca_fantasmas.jpg"),
-                ("O Diário de uma Princesa", 2001, "diario_princesa.jpg"),
-                ("As Branquelas", 2004, "branquelas.jpg"),
+                ("Superbad", 2007),
+                ("A Morte Lhe Cai Bem", 1992),
+                ("Os Caça-Fantasmas", 1984),
+                ("O Diário de uma Princesa", 2001),
+                ("As Branquelas", 2004),
             ],
             "Drama": [
-                ("Forrest Gump", 1994, "forrest_gump.jpg"),
-                ("O Poderoso Chefão", 1972, "poderoso_chefa.jpg"),
-                ("A Lista de Schindler", 1993, "lista_schindler.jpg"),
-                ("Clube da Luta", 1999, "clube_luta.jpg"),
-                ("O Senhor dos Anéis: O Retorno do Rei", 2003, "senhor_aneis.jpg"),
+                ("Forrest Gump", 1994),
+                ("O Poderoso Chefão", 1972),
+                ("A Lista de Schindler", 1993),
+                ("Clube da Luta", 1999),
+                ("O Senhor dos Anéis: O Retorno do Rei", 2003),
             ],
             "Ficção Científica": [
-                ("Interestelar", 2014, "interestelar.jpg"),
-                ("Blade Runner 2049", 2017, "blade_runner.jpg"),
-                ("A Origem", 2010, "origem.jpg"),
-                ("Ex Machina", 2014, "ex_machina.jpg"),
-                ("Matrix", 1999, "matrix.jpg"),
+                ("Interestelar", 2014),
+                ("Blade Runner 2049", 2017),
+                ("A Origem", 2010),
+                ("Ex Machina", 2014),
+                ("Matrix", 1999),
             ],
             "Animação": [
-                ("Toy Story", 1995, "toy_story.jpg"),
-                ("Procurando Nemo", 2003, "procurando_nemo.jpg"),
-                ("O Rei Leão", 1994, "rei_leao.jpg"),
-                ("Shrek", 2001, "shrek.jpg"),
-                ("Divertida Mente", 2015, "divertida_mente.jpg"),
+                ("Toy Story", 1995),
+                ("Procurando Nemo", 2003),
+                ("O Rei Leão", 1994),
+                ("Shrek", 2001),
+                ("Divertida Mente", 2015),
             ]
-        }
-
-        # Limites de idade para cada gênero
-        self.idade_limite = {
-            "Ação": (16, 100),
-            "Comédia": (10, 100),
-            "Drama": (12, 100),
-            "Ficção Científica": (12, 100),
-            "Animação": (0, 100)
         }
 
     def sortear_filme(self, genero):
@@ -84,7 +73,7 @@ class FilmeSorteador:
 
 class FilmeApp(App):
     def build(self):
-        Window.clearcolor = (0.1, 0.1, 0.1, 1)
+        Window.clearcolor = (0, 0, 0, 1)
         self.sorteador = FilmeSorteador()
 
         root = FloatLayout()
@@ -116,17 +105,6 @@ class FilmeApp(App):
             font_size=18
         )
         self.card.add_widget(self.name_input)
-
-        self.age_input = TextInput(
-            hint_text="Digite sua idade...",
-            multiline=False,
-            size_hint=(1, 0.15),
-            background_color=(0, 0, 0, 1),
-            foreground_color=(0, 1, 0, 1),
-            cursor_color=(1, 0, 1, 1),
-            font_size=18
-        )
-        self.card.add_widget(self.age_input)
 
         # Botões de seleção de gênero
         self.genre_buttons = BoxLayout(size_hint=(1, 0.15), spacing=10)
@@ -176,9 +154,9 @@ class FilmeApp(App):
         self.message_label.bind(size=self.ajustar_texto)
         self.card.add_widget(self.message_label)
 
-        # ScrollView para histórico de sugestões (só aparece quando há conteúdo)
-        self.history_scroll = ScrollView(size_hint=(1, None), height=0)
-        self.history_box = BoxLayout(orientation='vertical', size_hint_y=None, spacing=10, padding=5)
+        # ScrollView para histórico de sugestões
+        self.history_scroll = ScrollView(size_hint=(1, 0.4))
+        self.history_box = BoxLayout(orientation='vertical', size_hint_y=None)
         self.history_box.bind(minimum_height=self.history_box.setter('height'))
         self.history_scroll.add_widget(self.history_box)
 
@@ -194,29 +172,21 @@ class FilmeApp(App):
     def ajustar_texto(self, instance, value):
         instance.text_size = instance.size
 
-    def validar_entrada(self, nome, idade_texto, genero):
-        if not nome or len(nome) > 50 or not nome.isalnum():
-            self.show_popup("ERRO: Digite um nome válido (máx. 50 caracteres, sem caracteres especiais)!")
-            return False
-        if not idade_texto.isdigit() or int(idade_texto) < 0:
-            self.show_popup("ERRO: Digite uma idade válida!")
-            return False
-        if genero is None:
-            self.show_popup("ERRO: Selecione um gênero!")
-            return False
-        idade = int(idade_texto)
-        min_idade, max_idade = self.sorteador.idade_limite[genero]
-        if idade < min_idade or idade > max_idade:
-            self.show_popup(f"ERRO: Idade deve estar entre {min_idade} e {max_idade} para o gênero {genero}.")
+    def validar_entrada(self, nome):
+        if not nome:
+            self.show_popup("ERRO: Digite seu nome primeiro!")
             return False
         return True
 
     def sugerir_filme(self, instance):
         nome = self.name_input.text.strip()
-        idade_texto = self.age_input.text.strip()
         genero = next((genre for genre, btn in self.toggle_buttons.items() if btn.state == 'down'), None)
 
-        if not self.validar_entrada(nome, idade_texto, genero):
+        if not self.validar_entrada(nome):
+            return
+
+        if not genero:
+            self.show_popup("ERRO: Selecione um gênero!")
             return
 
         filme_escolhido = self.sorteador.sortear_filme(genero)
@@ -226,21 +196,14 @@ class FilmeApp(App):
                 f"Sua sugestão de filme de {genero} é:\n"
                 f"[color=ff00ff]{filme_escolhido[0]} ({filme_escolhido[1]})[/color]"
             )
-            # Adiciona a sugestão ao histórico com imagem
-            img = Image(source=filme_escolhido[2], size_hint=(1, None), height=200)
+            # Adiciona a sugestão ao histórico
             self.history_box.add_widget(Label(text=f"{nome} sugeriu: {filme_escolhido[0]} ({filme_escolhido[1]})", color=(1, 1, 1, 1)))
-            self.history_box.add_widget(img)
-
-            # Scroll automático para a última entrada
-            self.history_scroll.scroll_to(self.history_box.children[0])
 
     def limpar_campos(self, instance):
         self.name_input.text = ""
-        self.age_input.text = ""
         for btn in self.toggle_buttons.values():
             btn.state = 'normal'
         self.message_label.text = ""
-        self.history_box.clear_widgets()  # Limpa o histórico
 
 if __name__ == "__main__":
     FilmeApp().run()
