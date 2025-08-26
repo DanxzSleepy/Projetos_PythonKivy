@@ -7,13 +7,16 @@ from kivy.uix.textinput import TextInput
 from kivy.core.window import Window
 from kivy.uix.floatlayout import FloatLayout
 from kivy.graphics import Color, RoundedRectangle
+from kivy.uix.dropdown import DropDown
+from kivy.uix.spinner import Spinner
+from kivy.uix.popup import Popup
+from kivy.uix.scrollview import ScrollView
 
 
 class Card(BoxLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         with self.canvas.before:
-            # Fundo preto neon
             Color(0.05, 0.05, 0.05, 1)
             self.bg = RoundedRectangle(radius=[15], pos=self.pos, size=self.size)
         self.bind(pos=self.update_bg, size=self.update_bg)
@@ -25,27 +28,74 @@ class Card(BoxLayout):
 
 class FilmeApp(App):
     def build(self):
-        # Fundo preto com vibe retrô
         Window.clearcolor = (0, 0, 0, 1)
 
-        # Lista de filmes
-        self.filmes = [
-            "Matrix (1999)", "Toy Story (1995)", "Avatar (2009)", "O Rei Leão (1994)",
-            "Homem-Aranha (2002)", "Interestelar (2014)", "Shrek (2001)", "Clube da Luta (1999)",
-            "Procurando Nemo (2003)", "Vingadores: Ultimato (2019)", "Jurassic Park (1993)",
-            "Gladiador (2000)", "O Senhor dos Anéis: A Sociedade do Anel (2001)",
-            "O Senhor dos Anéis: O Retorno do Rei (2003)", "Batman: O Cavaleiro das Trevas (2008)",
-            "Forrest Gump (1994)", "Titanic (1997)", "Star Wars: Uma Nova Esperança (1977)",
-            "Star Wars: O Império Contra-Ataca (1980)", "De Volta para o Futuro (1985)",
-            "Harry Potter e a Pedra Filosofal (2001)", "Piratas do Caribe: A Maldição do Pérola Negra (2003)",
-            "Pantera Negra (2018)", "A Origem (2010)", "Homem de Ferro (2008)",
-            "Divertida Mente (2015)", "Coringa (2019)", "A Bela e a Fera (1991)",
-            "Os Incríveis (2004)", "O Exterminador do Futuro 2 (1991)"
-        ]
+        self.filmes = {
+    "Ação": [
+        "Mad Max: Estrada da Fúria (2015)",
+        "John Wick (2014)",
+        "Duro de Matar (1988)",
+        "Os Vingadores (2012)",
+        "Gladiador (2000)",
+        "O Protetor (2014)",
+        "Missão: Impossível - Efeito Fallout (2018)",
+        "Deadpool (2016)",
+        "O Exterminador do Futuro 2: O Julgamento Final (1991)",
+        "Matrix (1999)"
+    ],
+    "Comédia": [
+        "Superbad (2007)",
+        "A Morte Lhe Cai Bem (1992)",
+        "Os Caça-Fantasmas (1984)",
+        "O Diário de uma Princesa (2001)",
+        "As Branquelas (2004)",
+        "Se Beber, Não Case! (2009)",
+        "Apertem os Cintos... O Piloto Sumiu! (1980)",
+        "O Âncora: A Lenda de Ron Burgundy (2004)",
+        "Zoolander (2001)",
+        "A Noite dos Mortos-Vivos (1968)"
+    ],
+    "Drama": [
+        "Forrest Gump (1994)",
+        "O Poderoso Chefão (1972)",
+        "A Lista de Schindler (1993)",
+        "Clube da Luta (1999)",
+        "O Senhor dos Anéis: O Retorno do Rei (2003)",
+        "Cisne Negro (2010)",
+        "O Lobo de Wall Street (2013)",
+        "A Rede Social (2010)",
+        "12 Anos de Escravidão (2013)",
+        "O Pianista (2002)"
+    ],
+    "Ficção Científica": [
+        "Interestelar (2014)",
+        "Blade Runner 2049 (2017)",
+        "A Origem (2010)",
+        "Ex Machina (2014)",
+        "O Exterminador do Futuro (1984)",
+        "Matrix (1999)",
+        "Star Wars: Uma Nova Esperança (1977)",
+        "O Hospedeiro (2006)",
+        "A Chegada (2016)",
+        "Duna (2021)"
+    ],
+    "Animação": [
+        "Toy Story (1995)",
+        "Procurando Nemo (2003)",
+        "O Rei Leão (1994)",
+        "Shrek (2001)",
+        "Divertida Mente (2015)",
+        "Os Incríveis (2004)",
+        "Frozen: Uma Aventura Congelante (2013)",
+        "A Viagem de Chihiro (2001)",
+        "Zootopia (2016)",
+        "Como Treinar o Seu Dragão (2010)"
+    ]
+}
+
 
         root = FloatLayout()
 
-        # Cartão retrô central
         self.card = Card(
             orientation="vertical",
             padding=20,
@@ -54,36 +104,52 @@ class FilmeApp(App):
             pos_hint={"center_x": 0.5, "center_y": 0.5}
         )
 
-        # Título estilo neon
         self.title_label = Label(
-            text=" A.S.F.A. - App de Sugestão de Filmes Aaleatorios ",
+            text=" A.S.F.A. - App de Sugestão de Filmes Aleatórios ",
             font_size=24,
             bold=True,
-            color=(0, 1, 0.6, 1),  # verde neon
+            color=(0, 1, 0.6, 1),
             size_hint=(1, 0.2)
         )
         self.card.add_widget(self.title_label)
 
-        # Input nome estilo terminal
         self.name_input = TextInput(
             hint_text="Digite seu nome...",
             multiline=False,
             size_hint=(1, 0.15),
             background_color=(0, 0, 0, 1),
-            foreground_color=(0, 1, 0, 1),  # verde neon
-            cursor_color=(1, 0, 1, 1),  # rosa neon
+            foreground_color=(0, 1, 0, 1),
+            cursor_color=(1, 0, 1, 1),
             font_size=18
         )
         self.card.add_widget(self.name_input)
 
-        # Botão retrô
+        self.age_input = TextInput(
+            hint_text="Digite sua idade...",
+            multiline=False,
+            size_hint=(1, 0.15),
+            background_color=(0, 0, 0, 1),
+            foreground_color=(0, 1, 0, 1),
+            cursor_color=(1, 0, 1, 1),
+            font_size=18
+        )
+        self.card.add_widget(self.age_input)
+
+        # Dropdown para escolha de gênero
+        self.genre_spinner = Spinner(
+            text='Escolha um gênero',
+            values=('Ação', 'Comédia', 'Drama', 'Ficção Científica', 'Animação'),
+            size_hint=(1, 0.15)
+        )
+        self.card.add_widget(self.genre_spinner)
+
         self.button = Button(
             text=" GERAR FILME ",
             size_hint=(1, 0.2),
             background_normal='',
-            background_color=(0, 0.8, 0.4, 1),  # verde neon
+            background_color=(0, 0.8, 0.4, 1),
             font_size=20,
-            color=(0, 0, 0, 1)  # texto preto
+            color=(0, 0, 0, 1)
         )
         self.button.bind(on_press=self.sugerir_filme)
         self.card.add_widget(self.button)
@@ -101,26 +167,46 @@ class FilmeApp(App):
         self.message_label.bind(size=self.ajustar_texto)
         self.card.add_widget(self.message_label)
 
+        # ScrollView para histórico de sugestões
+        self.history_scroll = ScrollView(size_hint=(1, 0.4))
+        self.history_box = BoxLayout(orientation='vertical', size_hint_y=None)
+        self.history_box.bind(minimum_height=self.history_box.setter('height'))
+        self.history_scroll.add_widget(self.history_box)
+
+        self.card.add_widget(self.history_scroll)
+
         root.add_widget(self.card)
         return root
+
+    def show_popup(self, message):
+        popup = Popup(title='Mensagem', content=Label(text=message), size_hint=(0.8, 0.4))
+        popup.open()
 
     def ajustar_texto(self, instance, value):
         instance.text_size = instance.size
 
     def sugerir_filme(self, instance):
         nome = self.name_input.text.strip()
-
+        idade_texto = self.age_input.text.strip()
+        genero = self.genre_spinner.text
+        # Validações
         if not nome:
-            self.message_label.text = "[color=ff0000]ERRO: Digite seu nome primeiro![/color]"
+            self.show_popup("ERRO: Digite seu nome primeiro!")
             return
-
-        filme_escolhido = random.choice(self.filmes)
+        if not idade_texto.isdigit() or int(idade_texto) < 0:
+            self.show_popup("ERRO: Digite uma idade válida!")
+            return
+        if genero == 'Escolha um gênero':
+            self.show_popup("ERRO: Selecione um gênero!")
+            return
+        filme_escolhido = random.choice(self.filmes[genero])  # Seleciona um filme do gênero escolhido
         self.message_label.text = (
             f"[b][color=00ff99]Olá, {nome}![/color][/b]\n"
             f"Sua sugestão retrô é:\n"
             f"[color=ff00ff]{filme_escolhido}[/color]"
         )
-
+    # Adiciona a sugestão ao histórico
+        self.history_box.add_widget(Label(text=f"{nome} sugeriu: {filme_escolhido} ({genero})", color=(1, 1, 1, 1)))
 
 if __name__ == "__main__":
     FilmeApp().run()
