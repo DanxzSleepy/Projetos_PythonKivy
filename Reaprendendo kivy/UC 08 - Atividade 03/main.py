@@ -5,23 +5,29 @@ from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
 from kivy.core.window import Window
 
-class IdadeApp(App):
-    def build(self):
-        # Cor de fundo (cinza claro)
-        Window.clearcolor = (0.95, 0.95, 0.95, 1)
+# Definindo uma paleta de cores
+class Colors:
+    BACKGROUND = (0.95, 0.95, 0.95, 1)
+    TITLE_COLOR = (0.2, 0.2, 0.6, 1)  # azul escuro
+    BUTTON_COLOR = (0.1, 0.7, 0.3, 1)  # verde
+    ERROR_COLOR = (1, 0, 0, 1)  # vermelho
+    WARNING_COLOR = (0.9, 0.6, 0.1, 1)  # laranja
+    INFO_COLOR = (0.1, 0.5, 0.9, 1)  # azul
+    SUCCESS_COLOR = (0.1, 0.7, 0.3, 1)  # verde
 
-        # Layout principal
-        self.layout = BoxLayout(orientation="vertical", padding=20, spacing=15)
+class AgeForm(BoxLayout):
+    def __init__(self, **kwargs):
+        super().__init__(orientation="vertical", padding=20, spacing=15, **kwargs)
 
         # Título
         self.title_label = Label(
             text="App de Idade e Acesso",
             font_size=28,
             bold=True,
-            color=(0.2, 0.2, 0.6, 1),  # azul escuro
+            color=Colors.TITLE_COLOR,
             size_hint=(1, 0.2)
         )
-        self.layout.add_widget(self.title_label)
+        self.add_widget(self.title_label)
 
         # Campo Nome
         self.name_input = TextInput(
@@ -31,7 +37,7 @@ class IdadeApp(App):
             background_color=(1, 1, 1, 1),
             foreground_color=(0, 0, 0, 1)
         )
-        self.layout.add_widget(self.name_input)
+        self.add_widget(self.name_input)
 
         # Campo Idade
         self.age_input = TextInput(
@@ -42,19 +48,20 @@ class IdadeApp(App):
             background_color=(1, 1, 1, 1),
             foreground_color=(0, 0, 0, 1)
         )
-        self.layout.add_widget(self.age_input)
+        self.age_input.bind(on_text_validate=self.validate_input)
+        self.add_widget(self.age_input)
 
         # Botão Enviar
         self.button = Button(
             text="Enviar",
             size_hint=(1, 0.2),
-            background_normal='',  # garante a cor
-            background_color=(0.1, 0.7, 0.3, 1),  # verde
+            background_normal='',
+            background_color=Colors.BUTTON_COLOR,
             font_size=20,
             color=(1, 1, 1, 1)
         )
-        self.button.bind(on_press=self.verificar_idade)
-        self.layout.add_widget(self.button)
+        self.button.bind(on_press=self.verify_age)
+        self.add_widget(self.button)
 
         # Mensagem final
         self.message_label = Label(
@@ -63,47 +70,62 @@ class IdadeApp(App):
             halign="center",
             valign="middle",
             size_hint=(1, 0.3),
-            color=(0, 0, 0, 1)  # padrão preto
+            color=(0, 0, 0, 1)
         )
-        self.message_label.bind(size=self.ajustar_texto)
-        self.layout.add_widget(self.message_label)
+        self.message_label.bind(size=self.adjust_text)
+        self.add_widget(self.message_label)
 
-        return self.layout
-
-    def ajustar_texto(self, instance, value):
-        # Faz o texto centralizar de verdade
+    def adjust_text(self, instance, value):
         instance.text_size = instance.size
 
-    def verificar_idade(self, instance):
+    def validate_input(self, instance):
+        if not self.name_input.text.strip():
+            self.update_message("Por favor, preencha seu nome.", Colors.ERROR_COLOR)
+        elif not self.age_input.text.strip():
+            self.update_message("Por favor, preencha sua idade.", Colors.ERROR_COLOR)
+        else:
+            self.update_message("", (0, 0, 0, 1))  # Limpa a mensagem
+
+    def update_message(self, message, color):
+        self.message_label.text = message
+        self.message_label.color = color
+
+    def verify_age(self, instance):
         nome = self.name_input.text.strip()
         idade_texto = self.age_input.text.strip()
 
         if not nome or not idade_texto:
-            self.message_label.text = "Por favor, preencha todos os campos."
-            self.message_label.color = (1, 0, 0, 1)  # vermelho
+            self.update_message("Por favor, preencha todos os campos.", Colors.ERROR_COLOR)
             return
 
         try:
             idade = int(idade_texto)
         except ValueError:
-            self.message_label.text = "Digite uma idade válida (somente números)."
-            self.message_label.color = (1, 0, 0, 1)  # vermelho
+            self.update_message("Digite uma idade válida (somente números).", Colors.ERROR_COLOR)
             return
 
         # Lógica de verificação
-        if idade < 18:
-            self.message_label.text = f"Olá, {nome}! Você é menor de idade."
-            self.message_label.color = (0.9, 0.6, 0.1, 1)  # laranja
-        elif idade >= 60:
-            self.message_label.text = f"Olá, {nome}! Você é um idoso :D."
-            self.message_label.color = (0.1, 0.5, 0.9, 1)  # azul
+        if idade < 13:
+            self.update_message(f"Olá, {nome}! Você é uma criança.", Colors.WARNING_COLOR)
+        elif idade < 18:
+            self.update_message(f"Olá, {nome}! Você é um adolescente.", Colors.WARNING_COLOR)
+        elif idade < 30:
+            self.update_message(f"Olá, {nome}! Você é um jovem adulto.", Colors.SUCCESS_COLOR)
+        elif idade < 60:
+            self.update_message(f"Olá, {nome}! Você é um adulto.", Colors.SUCCESS_COLOR)
+        elif idade > 150:
+            self.update_message(f"Olá, {nome}! Você é um imortal poha ? que isso .,.", Colors.INFO_COLOR)
         else:
-            self.message_label.text = f"Olá, {nome}! Você é maior de idade."
-            self.message_label.color = (0.1, 0.7, 0.3, 1)  # verde
+            self.update_message(f"Olá, {nome}! Você é um idoso :D.", Colors.INFO_COLOR)
 
+class IdadeApp(App):
+    def build(self):
+        Window.clearcolor = Colors.BACKGROUND
+        return AgeForm()
 
 if __name__ == "__main__":
     IdadeApp().run()
+
 
 # Pontos a Melhorados
 
@@ -120,3 +142,28 @@ if __name__ == "__main__":
 
 # Mensagem de erro
 #   As mensagens poderiam ter cores diferentes (ex: vermelho para erro, verde/azul para sucesso), tornando mais claro para o usuário.
+
+# Pontos melhardos novamente:
+# Padronização de estilo
+
+# As cores e tamanhos foram definidos, mas ainda não existe uma paleta consistente para todo o app. Poderia pensar em um tema único (mesma família de cores, harmonia entre labels, botão e fundo).
+
+# Organização da lógica
+
+# A lógica de verificação da idade está toda em um único método. Separar as validações (ex: campos vazios, valores inválidos, faixa etária) em funções auxiliares deixaria o código mais limpo.
+
+# Faixas etárias adicionais
+
+# Ele já adicionou a condição de “idoso”, mas poderia enriquecer ainda mais criando outras categorias (adolescente, jovem adulto, etc.).
+
+# Feedback de entrada
+
+# Atualmente, só há feedback depois de clicar em “Enviar”. Seria interessante melhorar a experiência do usuário, por exemplo, destacando o campo vazio ou inválido já na digitação.
+
+# Reaproveitamento de código
+
+# As mudanças de cor e mensagem se repetem em vários pontos. Criar uma função auxiliar que atualize a mensagem + cor evitaria repetição.
+
+# Escalabilidade
+
+# Hoje, tudo está dentro da classe principal. Pensar em organizar melhor (por exemplo, criar um widget separado para o formulário) ajudaria caso o app cresça no futuro.
