@@ -4,6 +4,7 @@ from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
 from kivy.core.window import Window
+from kivy.uix.image import Image
 
 # Definindo uma paleta de cores
 class Colors:
@@ -75,20 +76,26 @@ class AgeForm(BoxLayout):
         self.message_label.bind(size=self.adjust_text)
         self.add_widget(self.message_label)
 
+        # Ícone de feedback
+        self.feedback_icon = Image(size_hint=(None, None), size=(50, 50))
+        self.add_widget(self.feedback_icon)
+
     def adjust_text(self, instance, value):
         instance.text_size = instance.size
 
     def validate_input(self, instance):
         if not self.name_input.text.strip():
-            self.update_message("Por favor, preencha seu nome.", Colors.ERROR_COLOR)
+            self.update_message("Por favor, preencha seu nome.", Colors.ERROR_COLOR, "error.png")
         elif not self.age_input.text.strip():
-            self.update_message("Por favor, preencha sua idade.", Colors.ERROR_COLOR)
+            self.update_message("Por favor, preencha sua idade.", Colors.ERROR_COLOR, "error.png")
         else:
-            self.update_message("", (0, 0, 0, 1))  # Limpa a mensagem
+            self.update_message("", (0, 0, 0, 1), "")
 
-    def update_message(self, message, color):
+    def update_message(self, message, color, icon_path):
         self.message_label.text = message
         self.message_label.color = color
+        self.feedback_icon.source = icon_path
+        self.feedback_icon.opacity = 1 if icon_path else 0  # Mostra ou esconde o ícone
 
     def verify_age(self, instance):
         nome = self.name_input.text.strip()
@@ -126,7 +133,6 @@ class IdadeApp(App):
 if __name__ == "__main__":
     IdadeApp().run()
 
-
 # Pontos a Melhorados
 
 # Estética do app
@@ -144,26 +150,27 @@ if __name__ == "__main__":
 #   As mensagens poderiam ter cores diferentes (ex: vermelho para erro, verde/azul para sucesso), tornando mais claro para o usuário.
 
 # Pontos melhardos novamente:
-# Padronização de estilo
 
+# Padronização de estilo
 # As cores e tamanhos foram definidos, mas ainda não existe uma paleta consistente para todo o app. Poderia pensar em um tema único (mesma família de cores, harmonia entre labels, botão e fundo).
 
 # Organização da lógica
-
 # A lógica de verificação da idade está toda em um único método. Separar as validações (ex: campos vazios, valores inválidos, faixa etária) em funções auxiliares deixaria o código mais limpo.
 
 # Faixas etárias adicionais
-
 # Ele já adicionou a condição de “idoso”, mas poderia enriquecer ainda mais criando outras categorias (adolescente, jovem adulto, etc.).
 
 # Feedback de entrada
-
 # Atualmente, só há feedback depois de clicar em “Enviar”. Seria interessante melhorar a experiência do usuário, por exemplo, destacando o campo vazio ou inválido já na digitação.
 
 # Reaproveitamento de código
-
 # As mudanças de cor e mensagem se repetem em vários pontos. Criar uma função auxiliar que atualize a mensagem + cor evitaria repetição.
 
 # Escalabilidade
-
 # Hoje, tudo está dentro da classe principal. Pensar em organizar melhor (por exemplo, criar um widget separado para o formulário) ajudaria caso o app cresça no futuro.
+
+# Experiência do usuário
+# Melhorar mensagens, cores e feedback visual pode tornar o app mais intuitivo e amigável, especialmente para usuários jovens.
+
+# Mensagens de alerta e sucesso
+# Usar cores distintas para sucesso, alerta e erro ajuda o usuário a entender rapidamente o resultado da ação.
