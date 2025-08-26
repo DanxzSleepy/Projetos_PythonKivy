@@ -23,7 +23,7 @@ class AgeForm(BoxLayout):
 
         # Título retrô
         self.title_label = Label(
-            text=" IDADE RETRÔ 3000 ",
+            text=" IDADE - Verificador de Faixa Etária ",
             font_size=28,
             bold=True,
             color=Colors.TITLE_COLOR,
