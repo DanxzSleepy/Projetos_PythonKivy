@@ -1,4 +1,7 @@
 import random
+import os
+
+
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
@@ -38,11 +41,11 @@ class FilmeSorteador:
                 ("Gladiador", 2000, "gladiador.jpg"),
             ],
             "Comédia": [
-                ("Superbad", 2007, "superbad.jpg"),
+                ("Superbad", 2007, "superbad.png"),
                 ("A Morte Lhe Cai Bem", 1992, "morte_lhe_cai_bem.jpg"),
                 ("Os Caça-Fantasmas", 1984, "caca_fantasmas.jpg"),
-                ("O Diário de uma Princesa", 2001, "diario_princesa.jpg"),
-                ("As Branquelas", 2004, "branquelas.jpg"),
+                ("O Diário de uma Princesa", 2001, "diario_princesa.webp"),
+                ("As Branquelas", 2004, "branquelas.jpeg"),
             ],
             "Drama": [
                 ("Forrest Gump", 1994, "forrest_gump.jpg"),
@@ -52,18 +55,18 @@ class FilmeSorteador:
                 ("O Senhor dos Anéis: O Retorno do Rei", 2003, "senhor_aneis.jpg"),
             ],
             "Ficção Científica": [
-                ("Interestelar", 2014, "interestelar.jpg"),
+                ("Interestelar", 2014, "interestelar.png"),
                 ("Blade Runner 2049", 2017, "blade_runner.jpg"),
                 ("A Origem", 2010, "origem.jpg"),
-                ("Ex Machina", 2014, "ex_machina.jpg"),
-                ("Matrix", 1999, "matrix.jpg"),
+                ("Ex Machina", 2014, "ex_machina.webp"),
+                ("Matrix", 1999, "matrix.png"),
             ],
             "Animação": [
-                ("Toy Story", 1995, "toy_story.jpg"),
+                ("Toy Story", 1995, "toy_story.webp"),
                 ("Procurando Nemo", 2003, "procurando_nemo.jpg"),
-                ("O Rei Leão", 1994, "rei_leao.jpg"),
+                ("O Rei Leão", 1994, "rei_leao.webp"),
                 ("Shrek", 2001, "shrek.jpg"),
-                ("Divertida Mente", 2015, "divertida_mente.jpg"),
+                ("Divertida Mente", 2015, "divertida_mente.webp"),
             ]
         }
 
@@ -226,11 +229,40 @@ class FilmeApp(App):
                 f"Sua sugestão de filme de {genero} é:\n"
                 f"[color=ff00ff]{filme_escolhido[0]} ({filme_escolhido[1]})[/color]"
             )
-            # Adiciona a sugestão ao histórico com imagem
-            img = Image(source=filme_escolhido[2], size_hint=(1, None), height=200)
-            self.history_box.add_widget(Label(text=f"{nome} sugeriu: {filme_escolhido[0]} ({filme_escolhido[1]})", color=(1, 1, 1, 1)))
-            self.history_box.add_widget(img)
+        
+        # Adiciona a sugestão ao histórico com imagem
+            img_path = os.path.join(os.path.dirname(__file__), filme_escolhido[2])
+        
+            # Debug: verifica se o arquivo existe
+            if not os.path.exists(img_path):
+                print(f"ERRO: Arquivo não encontrado: {img_path}")
+                # Adiciona apenas o texto se a imagem não existir
+                self.history_box.add_widget(Label(
+                    text=f"{nome} sugeriu: {filme_escolhido[0]} ({filme_escolhido[1]}) - [Imagem não encontrada]",
+                    color=(1, 1, 1, 1),
+                    size_hint_y=None,
+                    height=30
+                ))
+            else:
+                print(f"Imagem encontrada: {img_path}")
+                img = Image(
+                    source=img_path, 
+                    size_hint=(1, None), 
+                    height=200,
+                    allow_stretch=True  # Permite redimensionamento
+                )
+                label = Label(
+                    text=f"{nome} sugeriu: {filme_escolhido[0]} ({filme_escolhido[1]})",
+                    color=(1, 1, 1, 1),
+                    size_hint_y=None,
+                    height=30
+                )
+                self.history_box.add_widget(label)
+                self.history_box.add_widget(img)
 
+            # Expande o ScrollView para mostrar o histórico
+            self.history_scroll.height = min(300, self.history_box.height)
+        
             # Scroll automático para a última entrada
             self.history_scroll.scroll_to(self.history_box.children[0])
 
