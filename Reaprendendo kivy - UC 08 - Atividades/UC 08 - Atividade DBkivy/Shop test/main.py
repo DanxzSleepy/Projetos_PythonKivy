@@ -439,3 +439,11 @@ class ShopApp(App):
 
 if __name__ == "__main__":
     ShopApp().run()
+
+# tens uns bugs no avatar, mas tá ok
+# falta melhorar o visual
+# falta melhorar a usabilidade
+# falta melhorar a segurança (senha em texto puro, etc)
+# falta melhorar a lógica (ex: não checa estoque, etc)
+# falta melhorar o código (ex: repetição, etc)
+# mas tá ok para fins didáticos
