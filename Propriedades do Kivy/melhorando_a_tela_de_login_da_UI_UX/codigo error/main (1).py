@@ -53,5 +53,5 @@ class LoginApp(App):
 # A condição '__name__ == '__main__' garante que o código só seja executado
 # se o arquivo for rodado diretamente.
 if __name__ == '__main__':
-    # Cria uma instância de LoginApp e a executa.
+    # Cria uma instância de LoginApp e a executa
     LoginApp().run()
