@@ -165,7 +165,7 @@ class FilmeItem(BoxLayout):
         app.root.get_screen("listagem").atualizar_lista()
 
 
-# ---------- APP ----------
+# ---------- APP ---------
 class FilmeApp(App):
     def build(self):
         criar_banco()
