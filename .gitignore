@@ -32,3 +32,4 @@ Thumbs.db
 # Arquivos de configuração do Kivy
 .kivy/
 *.kivy
+Documentacao_Obsidian/.obsidian
