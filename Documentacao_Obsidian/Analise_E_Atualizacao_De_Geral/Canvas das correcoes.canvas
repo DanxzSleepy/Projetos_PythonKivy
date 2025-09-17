@@ -1,7 +1,7 @@
 {
 	"nodes":[
-		{"id":"2577a153cb3005a5","type":"group","x":-3240,"y":-3640,"width":19960,"height":8280,"color":"#ffffff","label":"UC8 Atividades"},
-		{"id":"ae78e61e9e4b12ab","type":"group","x":11180,"y":-3540,"width":5320,"height":7840,"color":"#c800ff","label":"Grupo sem título"},
+		{"id":"2577a153cb3005a5","type":"group","x":-3360,"y":-3640,"width":20080,"height":8280,"color":"#ffffff","label":"UC8 Atividades"},
+		{"id":"ae78e61e9e4b12ab","type":"group","x":11180,"y":-3540,"width":5320,"height":7840,"color":"#c800ff","label":"CrudFilmes com banco de dados"},
 		{"id":"397af04c8b180d02","type":"group","x":-7880,"y":-3680,"width":4180,"height":9920,"color":"6","label":"Grupo onde eu despedicei meu tempo onde era pra eu ter feito mais coisas so que eu fiquei nesses dois codigos pra nada "},
 		{"id":"21a4fb0950b5f7f5","type":"group","x":-5481,"y":-3580,"width":1681,"height":9660,"color":"6","label":"PongBall no python kivy"},
 		{"id":"d1dcf010ee763f07","type":"group","x":2480,"y":-3510,"width":2340,"height":6390,"color":"#c800ff","label":"SugestaoFilme"},
@@ -11,7 +11,7 @@
 		{"id":"f44f8dea70e3a9ab","type":"group","x":9180,"y":-3510,"width":1360,"height":5170,"color":"#c800ff","label":"Multi-telasboasvindas "},
 		{"id":"79141a7082ab95f6","type":"group","x":7360,"y":-3510,"width":1280,"height":5333,"color":"#c800ff","label":"ConsumoAPI-Piadas "},
 		{"id":"198e9cd0c6366c86","type":"group","x":-1500,"y":-3520,"width":1620,"height":3700,"color":"#c800ff","label":"BoasVindas"},
-		{"id":"c9bef8f84bbb29ef","type":"group","x":-3140,"y":-3520,"width":1280,"height":2220,"color":"#c800ff","label":"HelloWorld"},
+		{"id":"c9bef8f84bbb29ef","type":"group","x":-3140,"y":-3520,"width":1280,"height":2600,"color":"#c800ff","label":"HelloWorld"},
 		{"id":"95e2b3dabd98b695","type":"file","file":"Analise_E_Atualizacao_De_Geral/UC8/Atividade_CRUD_Filmes/Antes CRUD-filmesWBD.py.md","x":11200,"y":-3237,"width":1120,"height":4857,"color":"1"},
 		{"id":"f449dbdcacf12511","type":"file","file":"Analise_E_Atualizacao_De_Geral/UC8/Atividade_CRUD_Filmes/Antes FilmeApp.kv.md","x":12480,"y":-2880,"width":1040,"height":4500,"color":"1"},
 		{"id":"279bd6f3248c556b","type":"text","text":"# Arquivo de CRUD de filmesWBD sla tbm","x":13520,"y":-3520,"width":600,"height":60},
