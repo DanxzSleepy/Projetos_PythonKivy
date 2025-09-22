@@ -41,7 +41,10 @@ from kivy.uix.label import Label                 # Text display widget
 from kivy.uix.boxlayout import BoxLayout          # Linear layout container
 from kivy.uix.button import Button               # Interactive button widget
 from kivy.uix.image import Image                 # Image display widget
-
+from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.gridlayout import GridLayout
+from kivy.uix.scrollview import ScrollView
+from kivy.uix.textinput import TextInput
 
 class DatabaseManager:
     """
