@@ -66,7 +66,7 @@ class CadastroScreen(Screen):
             self.titulo.text = ""
             self.genero.text = ""
             self.ano.text = ""
-            self.imagem.text or None
+            self.imagem.text = ""
             popup = Popup(title="Sucesso", content=Label(text="Filme salvo com sucesso!"),
                           size_hint=(0.6, 0.4))
             popup.open()
@@ -79,7 +79,7 @@ class CadastroScreen(Screen):
 class ListagemScreen(Screen):
     lista = ObjectProperty(None)
 
-    def on_pre_enter(self):
+    def on_pre_enter(self, *args):
         self.atualizar_lista()
 
     def atualizar_lista(self):
