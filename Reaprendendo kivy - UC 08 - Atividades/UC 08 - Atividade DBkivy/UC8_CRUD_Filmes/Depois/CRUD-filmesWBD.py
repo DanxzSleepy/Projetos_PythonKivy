@@ -358,7 +358,7 @@ class ListScreen(Screen):
     
     movie_list = ObjectProperty(None)
     
-    def on_pre_enter(self):
+    def on_pre_enter(self, *args):
         """Executado antes da tela ser exibida."""
         self.update_movie_list()
     
