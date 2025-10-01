@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AvoidNess - Cadastro</title>
+
+    <!-- Fonte + Estilo AvoidNess -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Rajdhani:wght@500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="AvoidNess.css">
+
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(to bottom, #2d1b4e, #0d0521);
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .login-card {
+            background: rgba(15, 10, 30, 0.9);
+            border-radius: 16px;
+            padding: 2.5rem;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 0 25px rgba(138, 43, 226, 0.3);
+            backdrop-filter: blur(12px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .login-card h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        /* ===== INPUTS ===== */
+        .input-group {
+            position: relative;
+            margin-top: 1.2rem;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 10px;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid #444;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .input-group label {
+            position: absolute;
+            top: 12px;
+            left: 0;
+            color: #aaa;
+            font-size: 0.9rem;
+            pointer-events: none;
+            transition: 0.3s ease;
+        }
+
+        .input-group input:focus,
+        .input-group input:not(:placeholder-shown) {
+            border-color: #8a2be2;
+        }
+
+        .input-group input:focus+label,
+        .input-group input:not(:placeholder-shown)+label {
+            top: -12px;
+            font-size: 0.75rem;
+            color: #8a2be2;
+        }
+
+        /* ===== BOTÕES ===== */
+        .btn-main {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            margin-top: 2rem;
+            background: #8a2be2;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-main:hover {
+            background: #a855f7;
+            box-shadow: 0 0 15px rgba(138, 43, 226, 0.6);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 2rem 0 1.5rem;
+            color: #bbb;
+            font-size: 0.85rem;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #555;
+        }
+
+        .divider:not(:empty)::before {
+            margin-right: 0.75em;
+        }
+
+        .divider:not(:empty)::after {
+            margin-left: 0.75em;
+        }
+
+        .btn-alt {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #555;
+            background: rgba(255, 255, 255, 0.05);
+            color: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            margin-bottom: 0.8rem;
+            transition: 0.3s;
+        }
+
+        .btn-alt:hover {
+            background: rgba(138, 43, 226, 0.2);
+        }
+
+        .btn-alt img {
+            width: 18px;
+            height: 18px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-card">
+        <h2>Seja bem-vindo!</h2>
+        <form id="formCadastro" onsubmit="return validarFormulario()">
+
+            <div class="input-group">
+                <input type="text" id="nome" name="nome" placeholder=" " required>
+                <label for="nome">Nome</label>
+            </div>
+
+            <div class="input-group">
+                <input type="email" id="email" name="email" placeholder=" " required>
+                <label for="email">E-mail</label>
+            </div>
+
+            <div class="input-group">
+                <input type="password" id="senha" name="senha" placeholder=" " required>
+                <label for="senha">Senha</label>
+            </div>
+
+            <div class="input-group">
+                <input type="tel" id="telefone" name="telefone" placeholder=" " pattern="[0-9]{11}" maxlength="11">
+                <label for="telefone">Telefone</label>
+            </div>
+
+            <div class="input-group">
+                <input type="number" id="idade" name="idade" placeholder=" " min="12" max="120">
+                <label for="idade">Idade</label>
+            </div>
+
+            <button type="submit" class="btn-main">Cadastrar</button>
+        </form>
+
+        <div class="divider">Ou</div>
+
+        <button class="btn-alt">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Google">
+            Continuar com Google
+        </button>
+
+        <button class="btn-alt">
+            <img src="https://img.icons8.com/fluency/48/microsoft.png"
+                alt="Microsoft">
+            Continuar com Microsoft
+        </button>
+
+        <button class="btn-alt">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple">
+            Continuar com a Apple
+        </button>
+    </div>
+
+    <script>
+        function validarFormulario() {
+            let nome = document.getElementById("nome").value.trim();
+            let email = document.getElementById("email").value.trim();
+            let senha = document.getElementById("senha").value;
+            let telefone = document.getElementById("telefone").value.trim();
+            let idade = document.getElementById("idade").value;
+
+            // Nome
+            let regexNome = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]{3,}$/;
+            if (!regexNome.test(nome)) {
+                alert("O nome deve ter pelo menos 3 letras e não conter números.");
+                return false;
+            }
+
+            // Email
+            let regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!regexEmail.test(email)) {
+                alert("Digite um e-mail válido.");
+                return false;
+            }
+
+            // Senha
+            let regexSenha = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+            if (!regexSenha.test(senha)) {
+                alert("A senha deve ter no mínimo 8 caracteres, incluindo letra maiúscula, minúscula, número e símbolo.");
+                return false;
+            }
+
+            // Telefone
+            if (telefone !== "" && !/^\d{11}$/.test(telefone)) {
+                alert("Digite um telefone válido com 11 números (DDD + número).");
+                return false;
+            }
+
+            // Idade
+            if (idade !== "" && (idade < 12 || idade > 120)) {
+                alert("A idade deve estar entre 12 e 120 anos.");
+                return false;
+            }
+
+            alert("Cadastro realizado com sucesso!");
+            return true;
+        }
+    </script>
+</body>
+
+</html>
