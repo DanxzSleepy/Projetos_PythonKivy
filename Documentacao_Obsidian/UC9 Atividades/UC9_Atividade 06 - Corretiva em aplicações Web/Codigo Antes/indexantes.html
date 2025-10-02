@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Tarefas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #fff;
+            text-align: center;
+        }
+
+        #lista {
+            margin-top: 20px;
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+            margin: 5px;
+            padding: 8px;
+            background: #f0f0f0;
+            border-radius: 4px;
+        }
+    </style>
+    <script>
+        function adicionarTarefa() {
+            let input = document.getElementById("tarefa");
+            let valor = input.value;
+            if (valor = "") {
+                alert("Digite uma tarefa!");
+                return;
+            }
+            let li = document.createElement("il");
+            li.innerText = valor;
+            let botaoRemover = document.createElement("button");
+            botaoRemover.innerText = "Remover";
+            botaoRemover.onclick = function () {
+                li.parentNode.removeChild(li);
+            };
+            li.appendChild(botaoRemover);
+            document.getElementById("lista").appendChild(li);
+            input.innerText = "";
+        }
+    </script>
+</head>
+
+<body>
+    <h2>Minha Lista de Tarefas</h2>
+    <input type="text" id="tarefa" placeholder="Digite uma tarefa">
+    <button onclick="adicionar()">Adicionar</button>
+    <ul id="lista"></ul>
+</body>
+
+</html>
