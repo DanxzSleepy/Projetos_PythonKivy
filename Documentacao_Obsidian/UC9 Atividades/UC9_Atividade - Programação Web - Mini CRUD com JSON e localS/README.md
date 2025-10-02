@@ -24,7 +24,7 @@ Este projeto é uma aplicação web simples de lista de tarefas (CRUD) que utili
 
 1. Clone este repositório:
    ```
-   git clone <url-do-repositorio>
+   git clone https://github.com/DanxzSleepy/Projetos_PythonKivy ou <url-do-repositorio>
    ```
 
 2. Navegue até o diretório do projeto
@@ -67,5 +67,5 @@ Este projeto é uma aplicação web simples de lista de tarefas (CRUD) que utili
 
 ## 📝 Documentação
 
-A documentação completa da atividade está disponível no arquivo [documentacao.md](documentacao.md).
+A documentação completa da atividade está disponível no arquivo [UC09-Atividade_de_Programação_Web_Documentacao-Mini_CRUD_com_JSON_e_localStorage.md](UC09-Atividade_de_Programação_Web_Documentacao-Mini_CRUD_com_JSON_e_localStorage.md).
 
