@@ -5,12 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AvoidNess - Cadastro</title>
-
-  <!-- Fonte + Estilo AvoidNess -->
   <link
     href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Rajdhani:wght@500;700&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="AvoidNess.css">
 
   <style>
     body {
@@ -33,7 +30,7 @@
       animation: fadeInUp 0.8s ease forwards;
     }
 
-    .login-card h2 {
+    h2 {
       text-align: center;
       margin-bottom: 1.5rem;
       font-size: 1.6rem;
@@ -41,15 +38,15 @@
       color: #fff;
     }
 
-    /* ===== INPUTS ===== */
+    /* INPUT GROUP */
     .input-group {
       position: relative;
-      margin-top: 1.2rem;
+      margin-top: 1.5rem;
     }
 
     .input-group input {
       width: 100%;
-      padding: 12px 10px;
+      padding: 12px 36px 12px 10px;
       background: transparent;
       border: none;
       border-bottom: 2px solid #444;
@@ -97,8 +94,8 @@
       display: block;
     }
 
-     /* Botão olho senha */
-     .toggle-password {
+    /* Botão olho senha */
+    .toggle-password {
       position: absolute;
       right: 10px;
       top: 50%;
@@ -108,7 +105,6 @@
       color: #aaa;
     }
 
-    /* Mensagens de erro */
     .error-message {
       color: #ff6b6b;
       font-size: 0.8rem;
@@ -116,18 +112,22 @@
       display: none;
     }
 
-    /* ===== BOTÕES ===== */
-    .btn-main, .btn-clear {
+    /* Botões principais */
+    .btn-main,
+    .btn-clear {
       width: 100%;
       padding: 12px;
       border: none;
       border-radius: 8px;
-      margin-top: 2rem;
-      background: #8a2be2;
-      color: white;
+      margin-top: 1rem;
       font-weight: 600;
       cursor: pointer;
       transition: 0.3s;
+    }
+
+    .btn-main {
+      background: #8a2be2;
+      color: white;
     }
 
     .btn-main:hover {
@@ -144,6 +144,7 @@
       background: #666;
     }
 
+    /* Divider e botões sociais */
     .divider {
       display: flex;
       align-items: center;
@@ -189,12 +190,7 @@
       background: rgba(138, 43, 226, 0.2);
     }
 
-    .btn-alt img {
-      width: 18px;
-      height: 18px;
-    }
-
-    /* ===== MODAL ===== */
+    /* MODAL */
     .modal {
       display: none;
       position: fixed;
@@ -212,7 +208,6 @@
       padding: 2rem;
       border-radius: 12px;
       text-align: center;
-
       color: white;
       box-shadow: 0 0 20px rgba(138, 43, 226, 0.7);
       max-width: 350px;
@@ -250,7 +245,7 @@
       <div class="input-group">
         <input type="text" id="nome" name="nome" placeholder=" " required>
         <label for="nome">Nome</label>
-        <span class="clear-btn" onclick="document.getElementById('email').value=''">×</span>
+        <span class="clear-btn" onclick="document.getElementById('nome').value=''">×</span>
         <div class="error-message" id="erro-nome"></div>
       </div>
 
@@ -278,33 +273,21 @@
       <div class="input-group">
         <input type="number" id="idade" name="idade" placeholder=" " min="12" max="120">
         <label for="idade">Idade</label>
+        <span class="clear-btn" onclick="document.getElementById('idade').value=''">×</span>
         <div class="error-message" id="erro-idade"></div>
       </div>
 
       <button type="submit" class="btn-main">Cadastrar</button>
-      <button type="button" class="btn-clear" onclick="document.getElementById('formCadastro').reset()">Limpar
-        Tudo</button>
+      <button type="button" class="btn-clear" onclick="document.getElementById('formCadastro').reset()">Limpar Tudo</button>
     </form>
 
     <div class="divider">Ou</div>
-
-    <button class="btn-alt">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Google">
-      Continuar com Google
-    </button>
-
-    <button class="btn-alt">
-      <img src="https://img.icons8.com/fluency/48/microsoft.png" alt="Microsoft">
-      Continuar com Microsoft
-    </button>
-
-    <button class="btn-alt">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple">
-      Continuar com a Apple
-    </button>
+    <button class="btn-alt">Continuar com Google</button>
+    <button class="btn-alt">Continuar com Microsoft</button>
+    <button class="btn-alt">Continuar com a Apple</button>
   </div>
 
-  <!-- ===== MODAL POPUP ===== -->
+  <!-- POPUP -->
   <div id="successModal" class="modal">
     <div class="modal-content">
       <h3>🎉 Cadastro realizado!</h3>
@@ -319,7 +302,7 @@
     document.getElementById("formCadastro").addEventListener("submit", function (event) {
       event.preventDefault();
       if (validarFormulario()) {
-        modal.style.display = "flex"; // abre popup
+        modal.style.display = "flex";
         this.reset();
         document.querySelectorAll(".error-message").forEach(e => e.style.display = "none");
       }
@@ -343,43 +326,34 @@
       let telefone = document.getElementById("telefone").value.trim();
       let idade = document.getElementById("idade").value;
 
-      // limpar mensagens antigas
       document.querySelectorAll(".error-message").forEach(e => e.style.display = "none");
 
-      // Nome
-      let regexNome = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]{3,}$/;
-      if (!regexNome.test(nome)) {
-        document.getElementById("erro-nome").innerText = "O nome deve ter pelo menos 3 letras e não conter números.";
+      if (!/^[A-Za-zÀ-ÖØ-öø-ÿ\s]{3,}$/.test(nome)) {
+        document.getElementById("erro-nome").innerText = "Nome inválido";
         document.getElementById("erro-nome").style.display = "block";
         valido = false;
       }
 
-      // Email
-      let regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!regexEmail.test(email)) {
-        document.getElementById("erro-email").innerText = "Digite um e-mail válido.";
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        document.getElementById("erro-email").innerText = "E-mail inválido";
         document.getElementById("erro-email").style.display = "block";
         valido = false;
       }
 
-      // Senha
-      let regexSenha = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
-      if (!regexSenha.test(senha)) {
-        document.getElementById("erro-senha").innerText = "A senha deve ter no mínimo 8 caracteres, incluindo letra maiúscula, minúscula, número e símbolo.";
+      if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/.test(senha)) {
+        document.getElementById("erro-senha").innerText = "Senha fraca";
         document.getElementById("erro-senha").style.display = "block";
         valido = false;
       }
 
-      // Telefone
       if (telefone !== "" && !/^\d{11}$/.test(telefone)) {
-        document.getElementById("erro-telefone").innerText = "Digite um telefone válido com 11 números (DDD + número).";
+        document.getElementById("erro-telefone").innerText = "Telefone inválido";
         document.getElementById("erro-telefone").style.display = "block";
         valido = false;
       }
 
-      // Idade
       if (idade !== "" && (idade < 12 || idade > 120)) {
-        document.getElementById("erro-idade").innerText = "A idade deve estar entre 12 e 120 anos.";
+        document.getElementById("erro-idade").innerText = "Idade inválida";
         document.getElementById("erro-idade").style.display = "block";
         valido = false;
       }
@@ -388,5 +362,4 @@
     }
   </script>
 </body>
-
 </html>
